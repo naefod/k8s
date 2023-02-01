@@ -1,0 +1,11 @@
+loki update:
+
+1- docker plugin disable loki:latest -f
+
+2- docker plugin rm loki:latest -f
+
+3- docker plugin install grafana/loki-docker-driver:2.3.0 --alias loki --grant-all-permissions
+
+4- docker plugin inspect loki
+
+5- http://jbcn-ateport01.jbcn.solaredge.local:3100

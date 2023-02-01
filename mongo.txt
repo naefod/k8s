@@ -1,0 +1,31 @@
+
+kubectl exec --stdin --tty mongodb-576b478c4c-dp22j -n ate-production -- /bin/bash
+
+mongosh admin --host "mongodb" --authenticationDatabase admin -u root -p "p@ssw0rd4ate"
+
+############################################################################################
+
+
+
+
+**************************************************************************
+## copy frmo another db
+cd /tmp/
+
+mongodump --host=172.20.200.65 --port=31871 --authenticationDatabase="admin" -u="root" -p="p@ssw0rd4ate" --db=<db_name>
+
+tar -czvf dump.tar.gz dump
+
+mongosh admin --host "mongodb" --authenticationDatabase admin -u root -p "p@ssw0rd4ate"
+
+use gitlabcddb
+
+exit
+
+
+mongorestore --authenticationDatabase admin  --username root --password p@ssw0rd4ate --db gitlabcddb dump/gitlabcddb/
+
+mongosh admin --host "mongodb" --authenticationDatabase admin -u root -p "p@ssw0rd4ate"
+ 
+ 
+show dbs

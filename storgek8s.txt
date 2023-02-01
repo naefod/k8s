@@ -1,0 +1,39 @@
+**storege:
+
+**to mount local nfs :
+
+mount 172.22.0.133:/kitovsella1/kitovreview /mnt/nfs/
+
+**to mount pvc :
+
+mount -t cifs -o username=lab,domain=semx  //10.89.216.46/Log /mnt/vpc
+
+** to unmount:
+
+umount -l /mnt/test
+
+
+to exe in container as root user:
+
+ kubectl exec -it  <pod name>  -c <container name> --stdin --tty u 0  -- /bin/bash
+ 
+ 
+to add permission to storege writ :
+
+1- pvc : 
+    podSecurityContext: 
+       fsGroup: 2000
+
+
+2- nfs:
+    persistence:
+	data1:
+	  {
+	   ... 
+	  }
+	podSecurityContext:
+       runAsUser: 0
+       runAsGroup: 0
+       runAsNonRoot: false
+	   
+

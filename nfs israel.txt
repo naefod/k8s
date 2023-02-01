@@ -1,0 +1,41 @@
+# /etc/exports: the access control list for filesystems which may be exported
+#               to NFS clients.  See exports(5).
+#
+# Example for NFSv2 and NFSv3:
+# /srv/homes       hostname1(rw,sync,no_subtree_check) hostname2(ro,sync,no_subtree_check)
+#
+# Example for NFSv4:
+# /srv/nfs4        gss/krb5i(rw,sync,fsid=0,crossmnt,no_subtree_check)
+# /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
+#
+
+/nfs-storage/seil-ate-t2 172.20.202.77(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-t2 172.20.202.90(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-t2 172.20.202.129(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-t2 172.20.202.91(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-t2 172.20.202.130(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-t2 172.20.202.255(rw,sync,no_root_squash,no_all_squash)
+
+/nfs-storage/seil-ate-dev     172.20.202.163(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-dev     172.20.202.194(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-dev     172.20.202.195(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-dev     172.20.202.196(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-dev     172.20.202.197(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-dev     172.20.202.200(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-dev     172.20.200.68(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-dev     172.20.200.65(rw,sync,no_root_squash,no_all_squash)
+
+/nfs-storage/seil-ate-d     172.20.200.174(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-d     172.20.200.178(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-d     172.20.200.180(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-d     172.20.200.181(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-d     172.20.200.182(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-d     172.20.200.183(rw,sync,no_root_squash,no_all_squash)
+
+
+/nfs-storage/seil-ate-k8s-cl01     172.20.202.26(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-k8s-cl01     172.20.202.72(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-k8s-cl01     172.20.202.96(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-k8s-cl01     172.20.202.98(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-k8s-cl01     172.20.202.99(rw,sync,no_root_squash,no_all_squash)
+/nfs-storage/seil-ate-k8s-cl01     172.20.202.212(rw,sync,no_root_squash,no_all_squash)

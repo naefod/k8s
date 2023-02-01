@@ -1,0 +1,12 @@
+update the helm chart in nexus:
+
+1- helm repo add ate_helm_test  https://seil-nexus-ate.solaredge.com:8443/repository/ate_helm/ --username docker_ate
+password is : docker_ate
+2- helm install helm-test ate_helm_test/ate-helm --version 1.0.1
+3- helm repo update
+4- helm pull ate_helm_test/ate-helm
+5- helm repo update
+6- helm pull ate_helm_test/ate-helm # in nwe dir 
+7- tar zxvf ate-helm-1.0.1.tgz # unzip the file 
+8- donig update 
+9- curl -v -k --upload-file ate-helm-test-1.0.2.tgz -u docker_ate:docker_ate https://seil-nexus-ate.solaredge.com:8443/repository/ate_helm/ #add to nexus 

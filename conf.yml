@@ -1,0 +1,25 @@
+numline: ""
+num: ""
+confname: ""
+i: "1"
+deployname: ""
+deploynew: "" 
+- deployname=$(echo $CI_PROJECT_NAME | tr '[:upper:]' '[:lower:]')
+- echo $deployname
+- > 
+  for FILE in ./values/dev/*; do
+      if [-z $(grep -n "/config" $FILE)]; then echo 'you dont hanve configmabs file'; else 
+          numline=$(grep -n "/config" $FILE|awk '{print $1}');
+          export numline=${numline%":"};
+          let num=$numline+0;
+          let num=$num+1;
+          confname=$( cat  $FILE|awk "NR==$num"|awk '{print $2}' ORS=);
+          deploynew=$deployname"-"$i"-ate-helm"
+          kubectl set env deployment/$deploynew --from configmap/$confname --namespace=ate-production;
+          let i=$i+0
+          let i=$i+1
+      ext="${FILE##*/}" ;
+      echo $FILE; ex1="${ext%.*}" ; 
+      helm upgrade --install --set image.tag=$CI_LASTVERSION --set image.repository=$CI_LOWERCASE_DEV -f $FILE $CI_PROJECT_NAME-$ex1 ate_helm/ate-helm -n ate-production --history-max 3;
+  done
+  

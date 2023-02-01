@@ -1,0 +1,59 @@
+get the url of app : 
+1- the host :
+     kubectl describe -n ate-production ingress k8spythonappcicdmongo-1-ate-helm|awk '{print NR-1 "," $0}'|awk 'NR==10'|awk '{print $2}'
+2- the path: 
+    kubectl describe -n ate-production ingress k8spythonappcicdmongo-1-ate-helm|awk '{print NR-1 "," $0}'|awk 'NR==11'|awk '{print $2}'
+    
+    
+get the name oh the deployment in k8s : 
+    helm ls -A |awk '{print $1}'| grep -i "fishmarketapi"
+    
+    
+ for loop :
+     for OUTPUT in $(helm ls -A |awk '{print $1}'| grep -i "fishmarketapi"); do echo "welcome $OUTPUT !";  done 
+     
+     
+     
+**/ =>for OUTPUT in $(helm ls -A |awk '{print $1}'| grep -i "fishmarketapi"); do kubectl describe pod $OUTPUT -n ate-production; done
+
+
+@* GET THE HOST IN K8S APPS : 
+ 
+  -> for OUTPUT in $(helm ls -A |awk '{print $1}'| grep -i "fishmarketapi"); do  kubectl describe -n ate-production ingress $OUTPUT-ate-helm|awk '{print NR-1 "," $0}'|awk 'NR==10','NR==11'|awk '{print $2}' ORS=; done
+  
+  
+
+in liunx:
+  for OUTPUT in $(helm ls -A |awk '{print $1}'| grep -i $CI_PROJECT_NAME)
+  > do
+  > export HOST1=$(kubectl describe -n ate-production ingress $OUTPUT-ate-helm|awk '{print NR-1 "," $0}'|awk 'NR==16','NR==17'|awk '{print $2}' ORS=)
+  > export APP_URL=${HOST1%"(/|$)(.*)"}
+  > export APP_URL="${APP_URL}${C}"
+  > echo $APP_URL
+  - >
+      if [[ $(curl https://seil-ate-dev.solaredge.com/api/monitoring/pipeline/${FACILITY}/${CI_PROJECT_NAME}) == "[]" ]]; then http_response=$(curl -H "Content-Type: application/json" -d '{ "appname":"'"$CI_PROJECT_NAME"'", "username":"'"$GITLAB_USER_NAME"'", "facility":"'"$FACILITY"'", "imagename":"'"$CI_LOWERCASE_DEV"'", "projecturl":"'"$CI_PROJECT_URL"'", "appurl":"'"$APP_URL"'", "applogs":"'"$LOGS"'", "version":[{ "versionnum":"'"$CI_LASTVERSION"'", "versionuser":"'"$GITLAB_USER_NAME"'", "branch":"'"$CI_DEFAULT_BRANCH"'", "pipelineurl":"'"$CI_JOB_URL"'" }] }'  https://seil-ate-dev.solaredge.com/api/monitoring/pipeline/); else echo 'you are in update!'; http_response=$(curl -H "Content-Type: application/json" -d '{ "versionnum":"'"$CI_LASTVERSION"'", "versionuser":"'"$GITLAB_USER_NAME"'", "branch":"'"$CI_DEFAULT_BRANCH"'", "pipelineurl":"'"$CI_JOB_URL"'" }' $URLU); fi
+  > done 
+  
+  
+  in ALL:
+  URLUL: " https://seil-ate-dev.solaredge.com/api/monitoring/pipeline/u/$FACILITY/"
+  URLU: ""
+
+  
+  - >
+       for OUTPUT in $(helm ls -A |awk '{print $1}'| grep -i $CI_PROJECT_NAME); do
+             export HOST1=$(kubectl describe -n ate-production ingress $OUTPUT-ate-helm|awk '{print NR-1 "," $0}'|awk 'NR==16','NR==17'|awk '{print $2}' ORS=);
+             export APP_URL=${HOST1%"(/|$)(.*)"};
+             export APP_URL="${APP_URL}${C}";
+             echo $APP_URL;
+             export URLU="${URLUL}${OUTPUT}";
+             if [[ $(curl https://seil-ate-dev.solaredge.com/api/monitoring/pipeline/${FACILITY}/${OUTPUT}) == "[]" ]]; then http_response=$(curl -H "Content-Type: application/json" -d '{ "appname":"'"$OUTPUT"'", "username":"'"$GITLAB_USER_NAME"'", "facility":"'"$FACILITY"'", "imagename":"'"$CI_LOWERCASE_DEV"'", "projecturl":"'"$CI_PROJECT_URL"'", "appurl":"'"$APP_URL"'", "applogs":"'"$LOGS_URL"'", "version":[{ "versionnum":"'"$CI_LASTVERSION"'", "versionuser":"'"$GITLAB_USER_NAME"'", "branch":"'"$CI_DEFAULT_BRANCH"'", "pipelineurl":"'"$CI_JOB_URL"'" }] }'  https://seil-ate-dev.solaredge.com/api/monitoring/pipeline/); else echo 'you are in update!'; http_response=$(curl -H "Content-Type: application/json" -d '{ "versionnum":"'"$CI_LASTVERSION"'", "versionuser":"'"$GITLAB_USER_NAME"'", "branch":"'"$CI_DEFAULT_BRANCH"'", "pipelineurl":"'"$CI_JOB_URL"'" }' $URLU); fi       
+        done 
+get the cpu and memory:
+cpu:
+for OUTPUT in $(kubectl get pods -n ate-production |awk '{print $1}'); do kubectl top pod $OUTPUT -n ate-production |awk '{print $2}'|awk 'NR==2' >> cpu.txt; done
+memory:
+for OUTPUT in $(kubectl get pods -n ate-production |awk '{print $1}'); do kubectl top pod $OUTPUT -n ate-production |awk '{print $3}'|awk 'NR==2' >> memo.txt; done
+sort:
+sort -nr memo.txt > memo2.txt
+  

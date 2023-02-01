@@ -1,0 +1,46 @@
+To create new k8s cluster in a facility we need to do :
+
+** read the Readme.md file in seil-ate-deployer the path is :  /home/konstantin.sh/k8s-new-cluster
+
+1- Copy ssh keys from deployer to all cluster nodes to authorized_keys
+
+run command: ssh-keygen, then :
+
+vim /root/.ssh/authorized_keys, and pest the shh key .
+
+* run ansible -m ping -i inventory/emit-k8s-l/inventory.ini all to test that we are added the services to deployer 
+in /home/konstantin.sh/k8s-new-cluster/kubespray-2.17.1  
+
+2- git clone git@seil-glate01.solaredge.com:devops-automation/k8s-new-cluster.git -from the git lab-
+
+3- cd k8s-new-cluster/kubespray-2.17.1/inventory , nad then,  mkdir in /home/naef.o/k8s-new-cluster/kubespray-2.17.1/inventory name of the dir as per services
+
+4- copy the content of one directory in /home/naef.o/k8s-new-cluster/kubespray-2.17.1/inventory to the new dir that you creat frmo 3
+
+5- update the inventory.ini file in -/home/naef.o/k8s-new-cluster/kubespray-2.17.1/inventory/new-dir-3 - ===> the name of the services and the IP.
+
+6- update the	IP in  -metallb_ip_range:- in addons.yml file in /home/naef.o/k8s-new-cluster/kubespray-2.17.1/inventory/emit-k8s-l/group_vars/k8s_cluster
+* we nead load balancer ip ( float ) from IT ;
+
+7- update the -cluster_name:- in k8s-cluster.yml file in /home/naef.o/k8s-new-cluster/kubespray-2.17.1/inventory/emit-k8s-l/group_vars/k8s_cluster
+
+8- run ansible-playbook -i "/home/konstantin.sh/k8s-new-cluster/kubespray-2.17.1/inventory/name-new-dir/inventory.ini" cluster.yml 
+in /home/konstantin.sh/k8s-new-cluster/kubespray-2.17.1/inventory/name-new-dir .
+
+
+the pipline in gitlab  
+
+************************************************************************
+                                                                       *
+ cluster_lb_dns: ate-emit-k8s - dns from it ping the ip of LB          *
+ master_name: emit-k8s-l                                               *
+ sub_domain:.solaredge.local                                           *
+ domain:solaredge.local                                                *
+ cluster_folder:emit-k8s-l - the name of the folder                    *
+ ClusterLB_IP : ip of LB frmo it                                       *
+                                                                       *
+                                                                       *
+************************************************************************
+
+
+

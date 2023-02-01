@@ -1,0 +1,26 @@
+### install mysql ###
+
+helm install ateswappsitedb -n ateapp-mysql  /home/naef.o/k8s-common-apps/mysql/ --values="/home/naef.o/k8s-common-apps/mysql/ateswappsitedb.yml"
+
+
+helm upgrade ateswappsitedb -n ateapp-mysql /home/naef.o/k8s-common-apps/mysql --values="/home/naef.o/k8s-common-apps/mysql/ateswappsitedb.yml"
+
+### install mongo ###
+ helm install mongodb /home/naef.o/k8s-common-apps/mongodb/ -n ate-production
+
+
+# to get the kubeconfig file :
+
+cat ~/.kube/config
+
+
+### get the host name from ip :
+
+nslookup <ip>
+
+#############################
+change the defult storge class in k8s to nfs 
+
+kubectl patch storageclass standard -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+
+kubectl patch storageclass nfs-storage -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'

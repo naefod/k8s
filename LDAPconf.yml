@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ldap-config
+data:
+  ldap-url: "ldap://solaredge.local:389"
+  ldap-base-dn: "DC=solaredge,DC=local"
+  ldap-bind-dn: "cn=solaredge\\svc_ate_bind,DC=solaredge,DC=local"
+  ldap-bind-password: "9z5#*A;Uj_7xfNP"
+  
+ ---
+ 
+ apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ldap-config
+data:
+  ldap-url: "ldap://ldap.example.com"
+  ldap-base-dn: "DC=solaredge,DC=local"
+  ldap-bind-dn: "cn=solaredge\\svc_ate_bind,DC=solaredge,DC=local"
+  ldap-bind-password: "<password>"
+  ldap-search-filter: "(uid={0})"
+  ldap-group-search-base: "ou=groups,dc=example,dc=com"
+  ldap-group-search-filter: "(&(objectClass=groupOfUniqueNames)(uniqueMember={0}))"
+  ldap-user-dn-pattern: "uid={0},ou=people,dc=example,dc=com"
